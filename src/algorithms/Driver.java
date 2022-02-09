@@ -10,12 +10,13 @@ public class Driver
     private static StringBuilder report = new StringBuilder("Array Length");
     private static List<Consumer<int[]>> sortFunctions = new ArrayList<>();
 
-    public static void main(String[] args) {
-        int numTrials = 10;
-        int trialLengthIncrement = 10000;
-        int initialLength = 100;
-        int maxLength = 1000000 + initialLength;
-        int maxValue = 100000000;
+    public static void main(String[] args) throws Exception {
+        int numTrials = 20;
+        int trialLengthIncrement = 1000;
+        int initialLength = 1000;
+        int maxLength = 1000000;
+        int maxValue = 1000000;
+        String outputFileName = initialLength + "sl" + maxLength + "ml" + maxValue + "mv" + ".csv";
 
         //Add sorting algorithms here
         addSortingAlgorithmToTest(MergeSort::Sort, "Merge Sort Avg");
@@ -44,6 +45,10 @@ public class Driver
                     start = System.nanoTime();
                     sortFunctions.get(j).accept(copyArr);
                     timeArr[j] += System.nanoTime() - start;
+                    if (!isSorted(copyArr)) {
+                        System.err.println(sortFunctions.get(j).toString() + " Did not sort with mv and ml: " + maxValue + ", " + maxLength);
+                        throw (new Exception());
+                    }
                 }
             }
             report.append(length);
@@ -55,7 +60,15 @@ public class Driver
         }
         System.out.println(report);
         System.out.println(maxValue);
-        writeToFile(maxValue + ".csv", report.toString());
+        writeToFile(outputFileName, report.toString());
+    }
+
+    private static boolean isSorted(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[i] > arr[i + 1])
+                return false;
+        }
+        return true;
     }
 
     private static void addSortingAlgorithmToTest(Consumer<int[]> algorithm, String algorithmName) {
