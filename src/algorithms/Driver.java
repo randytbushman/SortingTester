@@ -11,18 +11,19 @@ public class Driver
     private static List<Consumer<int[]>> sortFunctions = new ArrayList<>();
 
     public static void main(String[] args) {
-        int numTrials = 10;
-        int trialLengthIncrement = 10000;
-        int initialLength = 100;
-        int maxLength = 1000000 + initialLength;
-        int maxValue = 100000000;
+        int numTrials = 20;
+        int trialLengthIncrement = 1;
+        int initialLength = 1;
+        int maxLength = 100;
+        int maxValue = 1000000000;
+        String outputFileName = initialLength + "sl" + maxLength + "ml" + maxValue + "mv" + ".csv";
 
         //Add sorting algorithms here
-        addSortingAlgorithmToTest(MergeSort::Sort, "Merge Sort Avg");
-        addSortingAlgorithmToTest(QuickSort::Sort, "Quicksort Avg");
-        addSortingAlgorithmToTest(CountingSort::Sort, "Counting Sort Avg");
+        //addSortingAlgorithmToTest(MergeSort::Sort, "Merge Sort Avg");
+        //addSortingAlgorithmToTest(QuickSort::Sort, "Quicksort Avg");
+        //addSortingAlgorithmToTest(CountingSort::Sort, "Counting Sort Avg");
         addSortingAlgorithmToTest(RadixSort::Sort, "Radix Sort Avg");
-        addSortingAlgorithmToTest(QRSort::Sort, "QR Sort Avg");
+        //addSortingAlgorithmToTest(QRSort::Sort, "QR Sort Avg");
 
         //Append the report with new line
         report.append("\n");
@@ -55,7 +56,7 @@ public class Driver
         }
         System.out.println(report);
         System.out.println(maxValue);
-        writeToFile(maxValue + ".csv", report.toString());
+        writeToFile(outputFileName, report.toString());
     }
 
     private static void addSortingAlgorithmToTest(Consumer<int[]> algorithm, String algorithmName) {
@@ -68,6 +69,7 @@ public class Driver
         Random rand = new Random();
         for(int i = 0; i < randomArr.length; ++i)
             randomArr[i] = rand.nextInt(maxValue);
+        randomArr[0] = maxValue; // Ensures the max value is in the array
         return randomArr;
     }
 
