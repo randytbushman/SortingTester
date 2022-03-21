@@ -2,7 +2,7 @@ package algorithms;
 
 public class QRSort {
 
-    public static void Sort(int[] arr, int i)
+    public static void Sort(int[] arr)
     {
         sort(arr, arr.length);
     }

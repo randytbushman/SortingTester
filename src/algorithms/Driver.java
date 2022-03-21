@@ -23,7 +23,7 @@ public class Driver
         //addSortingAlgorithmToTest(QuickSort::Sort, "Quicksort Avg");
         //addSortingAlgorithmToTest(CountingSort::Sort, "Counting Sort Avg");
         //addSortingAlgorithmToTest(RadixSort::Sort, "Radix Sort Avg");
-        addSortingAlgorithmToTest(arr -> QRSort.Sort(arr, 128), "QR Sort Avg");
+        addSortingAlgorithmToTest(arr -> QRSort.sort(arr, 128), "QR Sort Avg");
         addSortingAlgorithmToTest(arr -> QRSort.sortP2(arr, 7), "QR P2 Sort Avg");
 
         //Append the report with new line
