@@ -10,20 +10,21 @@ public class Driver
     private static StringBuilder report = new StringBuilder("Array Length");
     private static List<Consumer<int[]>> sortFunctions = new ArrayList<>();
 
-    public static void main(String[] args) throws Exception {
-        int numTrials = 20;
-        int trialLengthIncrement = 1000;
-        int initialLength = 1000;
+    public static void main(String[] args) {
+        int numTrials = 10;
+        int trialLengthIncrement = 10000;
+        int initialLength = 1;
         int maxLength = 1000000;
-        int maxValue = 1000000;
+        int maxValue = 100000000;
         String outputFileName = initialLength + "sl" + maxLength + "ml" + maxValue + "mv" + ".csv";
 
         //Add sorting algorithms here
-        addSortingAlgorithmToTest(MergeSort::Sort, "Merge Sort Avg");
-        addSortingAlgorithmToTest(QuickSort::Sort, "Quicksort Avg");
-        addSortingAlgorithmToTest(CountingSort::Sort, "Counting Sort Avg");
-        addSortingAlgorithmToTest(RadixSort::Sort, "Radix Sort Avg");
-        addSortingAlgorithmToTest(QRSort::Sort, "QR Sort Avg");
+        //addSortingAlgorithmToTest(MergeSort::Sort, "Merge Sort Avg");
+        //addSortingAlgorithmToTest(QuickSort::Sort, "Quicksort Avg");
+        //addSortingAlgorithmToTest(CountingSort::Sort, "Counting Sort Avg");
+        //addSortingAlgorithmToTest(RadixSort::Sort, "Radix Sort Avg");
+        addSortingAlgorithmToTest(arr -> QRSort.Sort(arr, 128), "QR Sort Avg");
+        addSortingAlgorithmToTest(arr -> QRSort.sortP2(arr, 7), "QR P2 Sort Avg");
 
         //Append the report with new line
         report.append("\n");
@@ -34,7 +35,7 @@ public class Driver
         long start;
         long[] timeArr = new long[sortFunctions.size()];
 
-        for(int length = initialLength; length <= maxLength; length += trialLengthIncrement) {
+        for(int length = initialLength; length < maxLength; length += trialLengthIncrement) {
             int[] arr;
             int[] copyArr;
 
@@ -45,10 +46,6 @@ public class Driver
                     start = System.nanoTime();
                     sortFunctions.get(j).accept(copyArr);
                     timeArr[j] += System.nanoTime() - start;
-                    if (!isSorted(copyArr)) {
-                        System.err.println(sortFunctions.get(j).toString() + " Did not sort with mv and ml: " + maxValue + ", " + maxLength);
-                        throw (new Exception());
-                    }
                 }
             }
             report.append(length);
