@@ -25,8 +25,6 @@ public class Driver
         //addSortingAlgorithmToTest(RadixSort::Sort, "Radix Sort Avg");
         addSortingAlgorithmToTest(arr -> QRSort.sort(arr, 128), "QR Sort Avg");
         addSortingAlgorithmToTest(arr -> QRSort.sortP2(arr, 7), "QR P2 Sort Avg");
-
-        //Append the report with new line
         report.append("\n");
 
         // Call all sorting algorithms with simple lists so there is no initial delay from the JIT compiler.
@@ -48,6 +46,7 @@ public class Driver
                     timeArr[j] += System.nanoTime() - start;
                 }
             }
+
             report.append(length);
             for (long l : timeArr) report.append(",").append((l * 1.0) / numTrials / 1000000);
             report.append("\n");
@@ -71,6 +70,17 @@ public class Driver
     private static void addSortingAlgorithmToTest(Consumer<int[]> algorithm, String algorithmName) {
         report.append(",").append(algorithmName);
         sortFunctions.add(algorithm);
+    }
+
+    private static int[] linSpace(int length, int min, int max) {
+        int[] arr = new int[length];
+        for(int i = 0; i < arr.length; ++i)
+            arr[i] = i * (arr[arr.length-1] - arr[0]) / arr.length + arr[0];
+        return arr;
+    }
+
+    private static int[] shuffle(int[] arr) {
+        return arr;
     }
 
     private static int[] generateRandomArray(int maxValue, int length) {
