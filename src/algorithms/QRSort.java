@@ -172,7 +172,6 @@ public class QRSort {
             // Reset the values to reuse counting array for sorting quotients
             for(i = 0; i < divisor; ++i)
                 countingArr[i] = 0;
-
             // Perform Counting Sort on quotient values
             for(i = 0; i < arr.length; ++i)
                 ++countingArr[shadowArr[i] >> power];
