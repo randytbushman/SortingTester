@@ -5,10 +5,15 @@ import java.io.IOException;
 import java.util.*;
 import java.util.function.Consumer;
 
+/**
+ * The driver we use to compare sorting algorithms.
+ * @author Randolph Bushman
+ * @version 5.19.22
+ */
 public class Driver
 {
-    private static final StringBuilder report = new StringBuilder("Array Length");
-    private static final List<Consumer<int[]>> sortFunctions = new ArrayList<>();
+    private static final StringBuilder report = new StringBuilder("Array Length");  // The string report we output
+    private static final List<Consumer<int[]>> sortFunctions = new ArrayList<>();   // List of sorting algorithms to test
 
     public static void main(String[] args) {
         int numTrials = 35;
