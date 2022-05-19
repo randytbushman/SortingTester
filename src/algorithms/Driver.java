@@ -7,8 +7,8 @@ import java.util.function.Consumer;
 
 public class Driver
 {
-    private static StringBuilder report = new StringBuilder("Array Length");
-    private static List<Consumer<int[]>> sortFunctions = new ArrayList<>();
+    private static final StringBuilder report = new StringBuilder("Array Length");
+    private static final List<Consumer<int[]>> sortFunctions = new ArrayList<>();
 
     public static void main(String[] args) {
         int numTrials = 35;
@@ -43,15 +43,11 @@ public class Driver
 
             for(int i = 0; i < numTrials; ++i) {
                 arr = shuffle(linSpace(length, minValue, maxValue));
-                if (hasNeg(arr))
-                    System.err.println("asdfasdf");
                 for(int j = 0; j < sortFunctions.size(); ++j) {
                     copyArr = arr.clone();
                     start = System.nanoTime();
                     sortFunctions.get(j).accept(copyArr);
                     timeArr[j] += System.nanoTime() - start;
-                    if(!isSorted(copyArr))
-                        System.err.println("ASdf");
                 }
             }
 
@@ -74,11 +70,23 @@ public class Driver
         return true;
     }
 
+    /**
+     * Adds the given sorting algorithm to the tester and creates an entry for it in the report.
+     * @param algorithm a sorting algorithm Consumer that takes in an int array
+     * @param algorithmName the name of the algorithm we use in the report
+     */
     private static void addSortingAlgorithmToTest(Consumer<int[]> algorithm, String algorithmName) {
         report.append(",").append(algorithmName);
         sortFunctions.add(algorithm);
     }
 
+    /**
+     * Returns an array with specified length with ascending linearly separated int values from min to max.
+     * @param length the length of the array we generate
+     * @param min the minimum value in the array we generate
+     * @param max the maximum value in the array we generate
+     * @return an array of specified length with ascending linearly separate int values
+     */
     private static int[] linSpace(int length, int min, int max) {
         int[] arr = new int[length];
         arr[0] = min;
@@ -88,6 +96,12 @@ public class Driver
         return arr;
     }
 
+    /**
+     * Shuffles the array such that each random permutation is equally likely to occur. Utilizes the Fisher–Yates
+     * algorithm.
+     * @param arr the int array to be shuffled
+     * @return the shuffled array
+     */
     private static int[] shuffle(int[] arr) {
         Random rand = new Random();
         for(int i = arr.length - 1; i > 0; --i) {
@@ -99,13 +113,11 @@ public class Driver
         return arr;
     }
 
-    private static boolean hasNeg(int[] arr) {
-        for(int num : arr)
-            if (num < 0)
-                return true;
-        return false;
-    }
-
+    /**
+     * Writes the given string to a file.
+     * @param fileName the name of the file
+     * @param contents the string contents of the file
+     */
     public static void writeToFile(String fileName, String contents)
     {
         try {
