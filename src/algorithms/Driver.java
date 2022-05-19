@@ -25,8 +25,8 @@ public class Driver
         //addSortingAlgorithmToTest(CountingSort::Sort, "Counting Sort Avg");
         //addSortingAlgorithmToTest(RadixSort::Sort, "Radix Sort Avg");
         addSortingAlgorithmToTest(arr -> QRSort.sort(arr, 128), "QR Sort Avg");
-        addSortingAlgorithmToTest(arr -> QRSort.sortP2(arr, 7), "QR P2 Sort Avg");
-        addSortingAlgorithmToTest(arr -> QRSort.sortP2MinZero(arr, 7), "QR P2 Zero Sort Avg");
+        addSortingAlgorithmToTest(arr -> QRSort.sortPower2(arr, 7), "QR P2 Sort Avg");
+        addSortingAlgorithmToTest(arr -> QRSort.sortPower2MinValueZero(arr, 7), "QR P2 Zero Sort Avg");
 
         report.append("\n");
         System.out.println(report);

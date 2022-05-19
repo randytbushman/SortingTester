@@ -1,13 +1,27 @@
 package algorithms;
 
+/**
+ * This class provides the user with Quotient Remainder sort methods.
+ * @author Randolph Bushman
+ * @version 5.19.22
+ */
 public class QRSort {
-
-    public static void Sort(int[] arr)
-    {
+    /**
+     * Sorts the given int array with QR Sort with the divisor set equal to the array length. This method possesses the
+     * time complexity O( n + k/n )
+     * @param arr the int array to be sorted
+     */
+    public static void sortDivisorN(int[] arr) {
         sort(arr, arr.length);
     }
 
-    public static int[] sort(int[] arr, int divisor)
+    /**
+     * Sorts the given int array with QR Sort with the divisor set equal to the array length. This method possesses the
+     * time complexity O( n + d + k/d ).
+     * @param arr the int array to be sorted
+     * @param divisor the value we use to calculate the quotient and remainder values of each array element
+     */
+    public static void sort(int[] arr, int divisor)
     {
         int i;
         // Find the minimum and maximum values
@@ -48,13 +62,15 @@ public class QRSort {
         else
             for(i = 0; i < arr.length; ++i)
                 arr[i] = shadowArr[i];
-
-        return arr;
     }
 
-    // Optimized Sorts
-
-    public static int[] sortZeroMin(int[] arr, int divisor)
+    /**
+     * An optimized QR sort method that assumes the minimum value in the input int array is zero. This method possesses
+     * the time complexity O( n + max_arr_value/n ). This method only works with positive int array values.
+     * @param arr the positive int array to be sorted
+     * @param divisor the value we use to calculate the quotient and remainder values of each array element
+     */
+    public static void sortMinValueZero(int[] arr, int divisor)
     {
         int i;
         // Find the minimum and maximum values
@@ -93,14 +109,19 @@ public class QRSort {
         else
             for(i = 0; i < arr.length; ++i)
                 arr[i] = shadowArr[i];
-
-        return arr;
     }
 
-    public static int[] sortP2(int[] arr, int power)
+    /**
+     * Sorts the given int array with QR Sort with the divisor set equal to a power of 2. This method utilizes bitwise
+     * operations to calculate remainders and quotients which saves on computation time. This method possesses the time
+     * complexity O( n + 2^p + k/(2^p) ).
+     * @param arr the int array to be sorted
+     * @param p the p-th value of 2 used as the divisor
+     */
+    public static void sortPower2(int[] arr, int p)
     {
         int i;
-        int divisor = 1 << power;
+        int divisor = 1 << p;
 
         // Find the minimum and maximum values
         int minValue = arr[0], maxValue = arr[0];
@@ -110,7 +131,7 @@ public class QRSort {
             else if(arr[i] > maxValue)
                 maxValue = arr[i];
 
-        int maxQuotient = ((maxValue - minValue) >> power) + 1;
+        int maxQuotient = ((maxValue - minValue) >> p) + 1;
 
         // Shadow array that is meant for temporary storage for all values
         int[] shadowArr = new int[arr.length];
@@ -131,22 +152,29 @@ public class QRSort {
 
             // Perform Counting Sort on quotient values
             for(i = 0; i < arr.length; ++i)
-                ++countingArr[(shadowArr[i] - minValue) >> power];
+                ++countingArr[(shadowArr[i] - minValue) >> p];
             for(i = 1; i < countingArr.length; ++i)
                 countingArr[i] += countingArr[i-1];
             for(i = arr.length-1; i > -1; --i)
-                arr[--countingArr[(shadowArr[i] - minValue) >> power]] = shadowArr[i];
+                arr[--countingArr[(shadowArr[i] - minValue) >> p]] = shadowArr[i];
         }
         else
             for(i = 0; i < arr.length; ++i)
                 arr[i] = shadowArr[i];
-
-        return arr;
     }
 
-    public static int[] sortP2MinZero(int[] arr, int power) {
+    /**
+     * Sorts the given int array with QR Sort with the divisor set equal to a power of 2. This method utilizes bitwise
+     * operations to calculate remainders and quotients which saves on computation time. This method also assumes the
+     * minimum value in the input int array is zero. This method possesses the time complexity
+     * O( n + 2^p + max_arr_value/(2^p) ). This method only works with positive int array values.
+     * @param arr the positive int array to be sorted
+     * @param p the p-th value of 2 used as the divisor
+     */
+    public static void sortPower2MinValueZero(int[] arr, int p)
+    {
         int i;
-        int divisor = 1 << power;
+        int divisor = 1 << p;
 
         // Find the minimum and maximum values
         int maxValue = arr[0];
@@ -154,7 +182,7 @@ public class QRSort {
             if(arr[i] > maxValue)
                 maxValue = arr[i];
 
-        int maxQuotient = (maxValue >> power) + 1;
+        int maxQuotient = (maxValue >> p) + 1;
 
         // Shadow array that is meant for temporary storage for all values
         int[] shadowArr = new int[arr.length];
@@ -174,16 +202,14 @@ public class QRSort {
                 countingArr[i] = 0;
             // Perform Counting Sort on quotient values
             for(i = 0; i < arr.length; ++i)
-                ++countingArr[shadowArr[i] >> power];
+                ++countingArr[shadowArr[i] >> p];
             for(i = 1; i < countingArr.length; ++i)
                 countingArr[i] += countingArr[i-1];
             for(i = arr.length-1; i > -1; --i)
-                arr[--countingArr[shadowArr[i] >> power]] = shadowArr[i];
+                arr[--countingArr[shadowArr[i] >> p]] = shadowArr[i];
         }
         else
             for(i = 0; i < arr.length; ++i)
                 arr[i] = shadowArr[i];
-
-        return arr;
     }
 }

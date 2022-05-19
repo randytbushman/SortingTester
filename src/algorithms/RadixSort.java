@@ -2,8 +2,15 @@ package algorithms;
 
 import java.util.Arrays;
 
+/**
+ *
+ */
 public class RadixSort {
-    public static void Sort(int[] arr) {
+    /**
+     * Performs RadixSort on the given int array.
+     * @param arr the int array to be sorted
+     */
+    public static void sort(int[] arr) {
         int i;
 
         int minValue = arr[0], maxValue = arr[0];
@@ -47,7 +54,5 @@ public class RadixSort {
                     arr[i] = shadowArr[i];
 
         }
-
-
     }
 }
