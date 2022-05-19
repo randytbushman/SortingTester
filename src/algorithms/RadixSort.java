@@ -3,11 +3,14 @@ package algorithms;
 import java.util.Arrays;
 
 /**
- *
+ * This class provides the user with RadixSort methods.
+ * @author Randolph Bushman
+ * @version 5.19.22
  */
 public class RadixSort {
     /**
-     * Performs RadixSort on the given int array.
+     * Performs RadixSort on the given int array with the radix set equal to the array length. This method possesses the
+     * time complexity O( n * log_n(k) )
      * @param arr the int array to be sorted
      */
     public static void sort(int[] arr) {
