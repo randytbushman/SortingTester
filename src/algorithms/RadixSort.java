@@ -25,7 +25,7 @@ public class RadixSort {
         maxValue -= minValue;
 
         int radix = arr.length;
-        int[] countingArr = new int[radix];
+        int[] countingArr = new int[radix];     // Array initializes to all zeros
         int[] shadowArr = new int[radix];
 
         boolean isNextRadix = maxValue > 0;
