@@ -16,36 +16,33 @@ public class Driver
     private static final List<Consumer<int[]>> sortFunctions = new ArrayList<>();   // List of sorting algorithms to test
 
     public static void main(String[] args) {
-        int numTrials = 35;
-        int trialLengthIncrement = 1000;
-        int initialLength = 1000;
+        int numTrials = 30;
+        int trialLengthIncrement = 10000;
+        int initialLength = 10000;
         int maxLength = 1000000;
         int minValue = 0;
-        int maxValue = 100000000;
+        int maxValue = 1000000;
         String outputFileName = initialLength + "sl" + maxLength + "ml" + maxValue + "mv" + ".csv";
 
         //Add sorting algorithms here
-        //addSortingAlgorithmToTest(MergeSort::Sort, "Merge Sort Avg");
-        //addSortingAlgorithmToTest(QuickSort::Sort, "Quicksort Avg");
-        //addSortingAlgorithmToTest(CountingSort::Sort, "Counting Sort Avg");
-        //addSortingAlgorithmToTest(RadixSort::Sort, "Radix Sort Avg");
-        addSortingAlgorithmToTest(arr -> QRSort.sort(arr, 128), "QR Sort Avg");
+        //addSortingAlgorithmToTest(MergeSort::sort, "Merge Sort Avg");
+        //addSortingAlgorithmToTest(QuickSort::sort, "Quicksort Avg");
+        //addSortingAlgorithmToTest(CountingSort::sort, "Counting Sort Avg");
+        //addSortingAlgorithmToTest(RadixSort::sort, "Radix Sort Avg");
+        // addSortingAlgorithmToTest(QRSort::sortDivisorN, "QR Sort Avg");
+        addSortingAlgorithmToTest(arr -> QRSort.sort(arr, 1 << 7), "QR Sort Avg");
         addSortingAlgorithmToTest(arr -> QRSort.sortPower2(arr, 7), "QR P2 Sort Avg");
         addSortingAlgorithmToTest(arr -> QRSort.sortPower2MinValueZero(arr, 7), "QR P2 Zero Sort Avg");
-
         report.append("\n");
-        System.out.println(report);
 
         // Call all sorting algorithms with simple lists so there is no initial delay from the JIT compiler.
-        for(Consumer<int[]> f : sortFunctions) f.accept(new int[]{1, 5, 2, 3, 6, 7, 8});
+        for(Consumer<int[]> f : sortFunctions) f.accept(new int[]{-1, 1, 5, 2, 3, 6, 7, 8});
 
         long start;
         long[] timeArr = new long[sortFunctions.size()];
-
         for(int length = initialLength; length < maxLength; length += trialLengthIncrement) {
             int[] arr;
             int[] copyArr;
-
             for(int i = 0; i < numTrials; ++i) {
                 arr = shuffle(linSpace(length, minValue, maxValue));
                 for(int j = 0; j < sortFunctions.size(); ++j) {
@@ -55,11 +52,9 @@ public class Driver
                     timeArr[j] += System.nanoTime() - start;
                 }
             }
-
             report.append(length);
             for (long l : timeArr) report.append(",").append((l * 1.0) / numTrials / 1000000);
             report.append("\n");
-
             Arrays.fill(timeArr, 0);
             System.out.println("Status: " + 100.0 * length / maxLength + "%");
         }
