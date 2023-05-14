@@ -29,7 +29,7 @@ public class Driver
         addSortingAlgorithmToTest(QuickSort::sort, "Quicksort Avg");
         addSortingAlgorithmToTest(CountingSort::sort, "Counting Sort Avg");
         addSortingAlgorithmToTest(RadixSort::sort, "Radix Sort Avg");
-         addSortingAlgorithmToTest(QRSort::sortDivisorN, "QR Sort Avg");
+        addSortingAlgorithmToTest(QRSort::sortDivisorN, "QR Sort Avg");
         //addSortingAlgorithmToTest(arr -> QRSort.sort(arr, 1 << 7), "QR Sort Avg");
         //addSortingAlgorithmToTest(arr -> QRSort.sortPower2(arr, 7), "QR P2 Sort Avg");
         //addSortingAlgorithmToTest(arr -> QRSort.sortPower2MinValueZero(arr, 7), "QR P2 Zero Sort Avg");
@@ -60,14 +60,6 @@ public class Driver
         }
         System.out.println(maxValue);
         writeToFile(outputFileName, report.toString());
-    }
-
-    private static boolean isSorted(int[] arr) {
-        for (int i = 0; i < arr.length - 1; i++) {
-            if (arr[i] > arr[i + 1])
-                return false;
-        }
-        return true;
     }
 
     /**
