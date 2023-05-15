@@ -1,7 +1,30 @@
-SortTester is a Java program designed to compare the performance of sorting algorithms by measuring array length versus time. The user defines a minimum and maximum array length. SortTester executes several tests between the specified range. Each test executes multiple trials, and the resulting times are averaged. The results are then saved to the specified output location. Outputs are formatted as CSVs.
+# SortTester: A Java-Based Sorting Algorithm Performance Evaluator
 
-Instructions:
+## Overview
 
-To run SortTester, the user must execute the Driver. The main function contains several tunable parameters, including trial count, test increment, minimum length, maximum length, maximum array value (minimum is 0), and the output file location.
+SortTester is a Java program created to assess and compare the efficiency of a variety of sorting algorithms. It does this by gauging the time taken to sort arrays of varying lengths. Users can specify both the minimum and maximum array lengths for the performance tests. SortTester conducts multiple tests within the defined range, each comprising several trials. The average time taken across these trials provides a comprehensive measure of each sorting algorithm's performance. The results are then saved to a user-specified location, formatted as CSV files for ease of analysis.
 
-To create and test a new sorting algorithm, the user must create a new Java file. The class must contain a static void method that takes in an int array. The user then must go into the Driver file and add the sorting algorithm to the test with the 'addSortingAlgorithmToTest' method.
+## User Guide
+
+### Running SortTester
+
+To use SortTester:
+
+1. Execute the 'Driver' class.
+
+The main function in the 'Driver' class hosts several configurable parameters, including:
+
+- Trial Count: The number of trials run for each test.
+- Test Increment: The change in length between each tested array.
+- Minimum and Maximum Length: The bounds for the lengths of arrays tested.
+- Maximum Array Value: The highest possible value for elements in the array (the minimum is set at 0).
+- Output File Location: The location where the CSV results file will be saved.
+
+### Incorporating New Sorting Algorithms
+
+To introduce and evaluate a new sorting algorithm, follow these steps:
+
+1. Create a new Java file for the sorting algorithm. Ensure the class contains a static void method that takes an 'int' array as a parameter.
+2. In the 'Driver' file, use the 'addSortingAlgorithmToTest' method to include the new sorting algorithm in the test suite.
+
+By following these instructions, users can easily adapt SortTester to evaluate the performance of any sorting algorithm, providing invaluable insights into algorithm efficiency.
